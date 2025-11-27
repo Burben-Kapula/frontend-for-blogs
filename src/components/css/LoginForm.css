@@ -1,0 +1,34 @@
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 200px;
+    padding-bottom: 30px;
+
+}
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 30px;
+        background-color: 
+    hsl(220, 90%, 50%);
+}
+
+
+.text {
+    color: hsl(225, 85%, 45%);
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.underline {
+    width: 61px;
+    height: 6px;
+    background-color: hsl(230, 100%, 40%);
+}

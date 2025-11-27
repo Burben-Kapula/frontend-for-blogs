@@ -1,44 +1,48 @@
-import { useState } from 'react'
-import loginService from '../services/login'
+import React from "react";
+import './css/LoginForm.css'
 
-function LoginForm() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [message, setMessage] = useState(null)
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    try {
-      const result = await loginService.login({ username, password })
-      setMessage(`Logged in as ${result.username}`)
-      // TODO: тут можна зберегти токен, користувача в state/localStorage
-    } catch (error) {
-      setMessage('Login failed')
-      console.error(error)
-    }
-  }
+
+
+function LoginForm(){
 
   return (
-    <div>
-      <h2>Login</h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          placeholder="Username"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  )
+    <>
+      <div className="container">
+        <div className="header">
+          <div className="text">Sing up</div>
+          <div className="underline"></div>
+        </div>
+        <div className="inputs">
+          <div className="input">
+            <input type="text" />
+          </div>
+          <div className="input">
+            <input type="email" />
+          </div>
+          <div className="input">
+            <input type="password" />
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
-
 export default LoginForm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
