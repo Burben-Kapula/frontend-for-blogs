@@ -5,13 +5,7 @@ function SingUpForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const nameInputRef = useRef(null);
-
-  useEffect(() => {
-    if (nameInputRef.current) {
-      nameInputRef.current.focus();
-    }
-  }, []);
+ 
 
   return (
     <>

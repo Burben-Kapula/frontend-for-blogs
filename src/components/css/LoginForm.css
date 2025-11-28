@@ -82,21 +82,21 @@
     margin: 60px auto;
 }
 
-.submit {
+button {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 220px;
     height: 59px;
-    color: #fff;
-    background: #4c00b4;
+    color: black;
+    background: #EAEAEA;
     font-size: 19px;
     font-weight: 700;
     cursor: pointer;
     border-radius: 50px;
 }
 
-.gray {
-    background: #EAEAEA;
-    color: #676767
+button:hover{
+    background: #4c00b4;
+    color:#EAEAEA
 }
