@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import './css/LoginForm.css'
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
 
 function LoginForm(){
+  const navigate=useNavigate()
  const [name, setName] = useState('')
  const [email, setEmail] = useState('')
  const [password, setPassword] = useState('')
@@ -14,8 +16,16 @@ function LoginForm(){
     e.preventDefault();
 
     try{
-        await axios.post('http://localhost:3001/',{
+        await axios.post('http://localhost:3001/login',{
             email,password
+        })
+        .then(res=>{
+          if(res.data === "exist"){navigate('/home',{state:{id:email}})}
+          else if(res.data === "noexist"){alert('User is no sing up!!!')}
+
+        })
+        .catch(e=>{
+          alert('Wrong detail')
         })
     }
     catch(e){
@@ -33,26 +43,29 @@ function LoginForm(){
           <div className="text">Login</div>
           <div className="underline"></div>
         </div>
-        <div className="inputs">
-            {/* Тут ім'я */}
-          <div className="input">
-            <input type="text" placeholder="Enter name: " onChange={(e)=> {setName(e.target.value)}}/>
+        <form onSubmit={submit}>
+          <div className="inputs">
+              {/* Тут ім'я */}
+            <div className="input">
+              <input type="text" placeholder="Enter name: " onChange={(e)=> {setName(e.target.value)}}/>
+            </div>
+            <div className="input">
+              {/*Тут пошта*/}
+              <input type="email" placeholder="Enter email: " onChange={(e)=>{setEmail(e.target.value)}}/>
+            </div>
+            <div className="input">
+              {/*Тут пароль*/}
+              <input type="password" placeholder="Enter password: "onChange={(e)=> {setPassword(e.target.value)}}/>
+            </div>
+              <button className="forgot-password"><span>Forgot password</span></button>
+              {/*Тут кнопки для логіна та регестрації*/}
+            <div className="submit-container">
+              <button type="submit"><span>Login</span></button>
+              {/* Change '/signup' to the correct route for your sign-up page */}
+              <button onClick={() => navigate('/signup')}><span>Sign Up</span></button>
+            </div>
           </div>
-          <div className="input">
-            {/*Тут пошта*/}
-            <input type="email" placeholder="Enter email: " onChange={(e)=>{setEmail(e.target.value)}}/>
-          </div>
-          <div className="input">
-            {/*Тут пароль*/}
-            <input type="password" placeholder="Enter password: "onChange={(e)=> {setPassword(e.target.value)}}/>
-          </div>
-            <button className="forgot-password"><span>Forgot password</span></button>
-            {/*Тут кнопки для логіна та регестрації*/}
-          <div className="submit-container">
-            <button onClick={submit}><span>Login</span></button>
-            <button><a href="">Sing Up</a></button>            
-          </div>
-        </div>
+        </form>
       </div>
     </>
   );
