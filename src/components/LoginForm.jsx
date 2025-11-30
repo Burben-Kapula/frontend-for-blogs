@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import './css/LoginForm.css'
-import { useNavigate, Link } from "react-router-dom"
 import axios from "axios"
 
 
@@ -8,6 +7,7 @@ function LoginForm(){
  const [name, setName] = useState('')
  const [email, setEmail] = useState('')
  const [password, setPassword] = useState('')
+
 
 
  async function submit(e) {
@@ -50,7 +50,7 @@ function LoginForm(){
             {/*Тут кнопки для логіна та регестрації*/}
           <div className="submit-container">
             <button onClick={submit}><span>Login</span></button>
-            <Link to="/src/components/SingUpForm.jsx">Sing Up</Link>
+            <button><a href="">Sing Up</a></button>            
           </div>
         </div>
       </div>
