@@ -13,7 +13,7 @@ function SingUpForm() {
     e.preventDefault();
 
     try{
-        await axios.post('http://localhost:3001/singup',{
+        await axios.post('https://beckend-for-blogs.onrender.com/singup',{
             email,password
         })
         .then(res=>{

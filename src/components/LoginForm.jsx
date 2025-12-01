@@ -15,24 +15,25 @@ function LoginForm(){
  async function submit(e) {
     e.preventDefault();
 
-    try{
-        await axios.post('https://beckend-for-blogs.onrender.com',{
-            email,password
-        })
-        .then(res=>{
-          if(res.data === "exist"){navigate('/home',{state:{id:email}})}
-          else if(res.data === "noexist"){alert('User is no sing up!!!')}
 
-        })
-        .catch(e=>{
-          alert('Wrong detail')
-        })
-    }
-    catch(e){
-        console.log(e)
+  try {
+    const res = await axios.post(
+      "https://beckend-for-blogs.onrender.com/singup",
+      { email, password }
+    )
 
+    if (res.data === "exist") {
+      navigate("/home", { state: { id: email } })
+    } else if (res.data === "noexist") {
+      alert("User is not signed up!!!")
+    } else {
+      alert("Unexpected response: " + res.data)
     }
- }
+  } catch (e) {
+    console.log(e)
+    alert("Wrong detail")
+  }
+}
 
 
 
