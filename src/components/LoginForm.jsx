@@ -16,7 +16,7 @@ function LoginForm(){
     e.preventDefault();
 
     try{
-        await axios.post('http://localhost:3001/login',{
+        await axios.post('https://beckend-for-blogs.onrender.com',{
             email,password
         })
         .then(res=>{
