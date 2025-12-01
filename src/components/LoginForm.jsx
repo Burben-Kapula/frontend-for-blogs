@@ -19,7 +19,7 @@ function LoginForm(){
   try {
     const res = await axios.post(
       "https://beckend-for-blogs.onrender.com/login",
-      { email, password }
+      { name, email, password }
     )
 
     if (res.data === "exist") {
