@@ -18,7 +18,7 @@ function LoginForm(){
 
   try {
     const res = await axios.post(
-      "https://beckend-for-blogs.onrender.com/singup",
+      "https://beckend-for-blogs.onrender.com/login",
       { email, password }
     )
 
