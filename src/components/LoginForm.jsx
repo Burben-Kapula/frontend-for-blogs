@@ -63,7 +63,7 @@ function LoginForm(){
             <div className="submit-container">
               <button type="submit"><span>Login</span></button>
               {/* Change '/signup' to the correct route for your sign-up page */}
-              <button onClick={() => navigate('/signup')}><span>Sign Up</span></button>
+              <Link to="/signup">Sign Up</Link>
             </div>
           </div>
         </form>
