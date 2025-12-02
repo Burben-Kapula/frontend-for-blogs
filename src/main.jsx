@@ -1,16 +1,12 @@
 import React from "react"
-import { Routes, Route, Navigate } from "react-router-dom"
-import LoginForm from "./components/LoginForm"
-import Home from "./components/Home"
+import ReactDOM from "react-dom/client"
+import { BrowserRouter } from "react-router-dom"
+import App from "./App"
 
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<LoginForm />} />
-      <Route path="/home" element={<Home />} />
-    </Routes>
-  )
-}
-
-export default App
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+)
