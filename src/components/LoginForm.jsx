@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 function LoginForm(){
   const navigate=useNavigate()
- const [name, setName] = useState('')
+ const [username, setName] = useState('')
  const [email, setEmail] = useState('')
  const [password, setPassword] = useState('')
 
@@ -19,7 +19,7 @@ function LoginForm(){
   try {
     const res = await axios.post(
       "https://beckend-for-blogs.onrender.com/login",
-      { name, email, password }
+      { username, email, password }
     )
 
     if (res.data === "exist") {

@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import './css/SingUpForm.css';
 
 function SingUpForm() {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function SingUpForm() {
     const res = await axios.post(
     "https://beckend-for-blogs.onrender.com/api/auth/register",
       {
-        name,
+        username,
         email,
         password,
       }
@@ -52,7 +52,7 @@ function SingUpForm() {
               <input
                 type="text"
                 placeholder="Enter name: "
-                value={name}
+                value={username}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
