@@ -1,5 +1,5 @@
 import React from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, Link } from "react-router-dom"
 
 function Home() {
   const location = useLocation()
