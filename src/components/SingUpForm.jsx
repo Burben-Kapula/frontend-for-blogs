@@ -33,8 +33,8 @@ function SingUpForm() {
       alert("Unexpected response from server")
     }
   } catch (e) {
-      console.error('SIGNUP ERROR', e.response?.status, e.response?.data || e.message)
-      alert("Wrong detail")
+    console.error('SIGNUP ERROR', e.response?.status, e.response?.data || e.message)
+    alert(e.response?.data?.error || e.response?.data || e.message || "Registration failed")
   }
 }
 
