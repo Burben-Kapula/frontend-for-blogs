@@ -12,8 +12,6 @@ function SingUpForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-const handleSignUp = async (e) => {
-  e.preventDefault()
 
   try {
     const res = await axios.post(
@@ -83,4 +81,4 @@ const handleSignUp = async (e) => {
   );
 }
 
-export default SingUpForm;
+export default SingUpForm
