@@ -1,10 +1,16 @@
 import React from "react"
-import ReactDOM from "react-dom/client"
-import { BrowserRouter } from "react-router-dom"
-import App from "./App"
+import { Routes, Route, Navigate } from "react-router-dom"
+import LoginForm from "./components/LoginForm"
+import Home from "./components/Home"
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-)
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<LoginForm />} />
+      <Route path="/home" element={<Home />} />
+    </Routes>
+  )
+}
+
+export default App
