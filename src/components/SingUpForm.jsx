@@ -15,7 +15,7 @@ function SingUpForm() {
 
   try {
     const res = await axios.post(
-      "https://beckend-for-blogs.onrender.com/singup",
+    "https://beckend-for-blogs.onrender.com/api/auth/register",
       {
         name,
         email,
