@@ -12,7 +12,7 @@ function SingUpForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
+  console.log('SIGNUP DATA:', { name, email, password })
   try {
     const res = await axios.post(
     "https://beckend-for-blogs.onrender.com/api/auth/register",
