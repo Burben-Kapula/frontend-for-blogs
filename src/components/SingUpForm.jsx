@@ -12,28 +12,33 @@ function SingUpForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-        await axios.post('https://beckend-for-blogs.onrender.com/singup',{
-            email,password
-        })
-        .then(res=>{
-          if(res.data === "exist"){
-            alert('User already signed up')
-            // navigate('/home',{state:{id:email}})
-          }
-          else if(res.data === "noexist"){
-            alert('User is not signed up yet. Creating a new account.')
-            navigate('/home',{state:{id:email}})
-          }
-        })
-        .catch(e=>{
-          alert('Wrong detail')
-        })
+const handleSignUp = async (e) => {
+  e.preventDefault()
+
+  try {
+    const res = await axios.post(
+      "https://beckend-for-blogs.onrender.com/singup",
+      {
+        email,
+        password,
+      }
+    )
+
+    if (res.data === "exist") {
+      alert("User already signed up")
+      // navigate('/home', { state: { id: email } })
+    } else if (res.data === "noexist") {
+      alert("User is not signed up yet. Creating a new account.")
+      navigate("/home", { state: { id: email } })
+    } else {
+      alert("Unexpected response from server")
     }
-    catch(e){
-        console.log(e)
-    }
+  } catch (e) {
+    console.error(e)
+    alert("Wrong detail")
   }
+}
+
 
   return (
     <>
