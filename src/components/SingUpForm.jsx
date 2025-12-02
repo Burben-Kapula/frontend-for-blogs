@@ -39,13 +39,12 @@ function SingUpForm() {
     <>
       <div className="container">
         <div className="header">
-          <div className="text">Sign Upз</div>
+          <div className="text">Sign Up</div>
           <div className="underline"></div>
         </div>
         <div className="inputs">
           <form onSubmit={handleSubmit}>
             <div className="input">
-              //Тут імя
               <input
                 type="text"
                 placeholder="Enter name: "
@@ -54,7 +53,6 @@ function SingUpForm() {
               />
             </div>
             <div className="input">
-              //Тут пошта
               <input
                 type="email"
                 placeholder="Enter email: "
@@ -63,7 +61,6 @@ function SingUpForm() {
               />
             </div>
             <div className="input">
-              //Тут пароль
               <input
                 type="password"
                 placeholder="Enter password: "
