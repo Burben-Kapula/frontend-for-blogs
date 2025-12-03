@@ -12,10 +12,9 @@ function SingUpForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-  console.log('SIGNUP DATA:', { name, email, password })
   try {
     const res = await axios.post(
-  "https://beckend-for-blogs.onrender.com/api/auth/register",
+      "/api/auth/register",
         {
         username,
         email,
@@ -23,14 +22,11 @@ function SingUpForm() {
       }
     )
 
-    if (res.data === "exist") {
-      alert("User already signed up")
-      // navigate('/home', { state: { id: email } })
-    } else if (res.data === "noexist") {
-      alert("User is not signed up yet. Creating a new account.")
-      navigate("/home", { state: { id: email } })
+    if (res.data.username) {
+      alert("Registration successful! Please login.")
+      navigate("/")
     } else {
-      alert("Unexpected response from server")
+      alert("Registration failed")
     }
   } catch (e) {
     console.error('SIGNUP ERROR', e.response?.status, e.response?.data || e.message)

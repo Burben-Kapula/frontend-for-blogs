@@ -15,19 +15,18 @@ function LoginForm(){
  async function submit(e) {
     e.preventDefault();
 
-
   try {
     const res = await axios.post(
-      "https://beckend-for-blogs.onrender.com/login",
-      { username, email, password }
+      "/api/auth/login",
+      { usernameOrEmail: username || email, password }
     )
 
-    if (res.data === "exist") {
-      navigate("/home", { state: { id: email } })
-    } else if (res.data === "noexist") {
-      alert("User is not signed up!!!")
+    if (res.data.token) {
+      localStorage.setItem('token', res.data.token)
+      localStorage.setItem('user', JSON.stringify(res.data))
+      navigate("/home")
     } else {
-      alert("Unexpected response: " + res.data)
+      alert("Invalid credentials")
     }
   } catch (e) {
     console.log(e)
