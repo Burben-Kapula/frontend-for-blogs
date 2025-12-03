@@ -9,6 +9,7 @@ function LoginForm(){
  const [username, setName] = useState('')
  const [email, setEmail] = useState('')
  const [password, setPassword] = useState('')
+ const [showPassword, setShowPassword] = useState(false)
 
 
 
@@ -53,9 +54,30 @@ function LoginForm(){
               {/*Тут пошта*/}
               <input type="email" placeholder="Enter email: " onChange={(e)=>{setEmail(e.target.value)}}/>
             </div>
-            <div className="input">
+            <div className="input" style={{ position: 'relative' }}>
               {/*Тут пароль*/}
-              <input type="password" placeholder="Enter password: "onChange={(e)=> {setPassword(e.target.value)}}/>
+              <input 
+                type={showPassword ? "text" : "password"} 
+                placeholder="Enter password: "
+                onChange={(e)=> {setPassword(e.target.value)}}
+                style={{ paddingRight: '40px' }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '14px'
+                }}
+              >
+                {showPassword ? '👁️' : '👁️‍🗨️'}
+              </button>
             </div>
               <button className="forgot-password"><span>Forgot password</span></button>
               {/*Тут кнопки для логіна та регестрації*/}
