@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './css/LoginForm.css'
-import axios from "axios"
+import api from "../services/api"
 import { useNavigate, Link } from "react-router-dom";
 
 
@@ -17,8 +17,8 @@ function LoginForm(){
     e.preventDefault();
 
   try {
-    const res = await axios.post(
-      "/api/auth/login",
+    const res = await api.post(
+      "/auth/login",
       { usernameOrEmail: username || email, password }
     )
 

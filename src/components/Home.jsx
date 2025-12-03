@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import axios from "axios"
+import api from "../services/api"
 
 function Home() {
   const navigate = useNavigate()
@@ -20,9 +20,7 @@ function Home() {
     setUser(parsedUser)
     
     // Завантаження блогів
-    axios.get('/api/blogs', {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(res => {
+    api.get('/blogs').then(res => {
       setBlogs(res.data)
     }).catch(err => {
       console.error('Failed to load blogs:', err)
