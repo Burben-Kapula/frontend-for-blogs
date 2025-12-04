@@ -19,7 +19,7 @@ console.log('test')
   try {
     const res = await api.post(
       "/auth/login",
-      { usernameOrEmail: email, password }
+      { username, email, password }
     )
 
     if (res.data.token) {
@@ -27,11 +27,12 @@ console.log('test')
       localStorage.setItem('user', JSON.stringify(res.data))
       navigate("/home")
     } else {
-      alert("Invalid credentials")
+      alert("Login failed")
     }
   } catch (e) {
-    console.log(e)
-    alert("Wrong detail")
+    console.error('Login error:', e)
+    const errorMsg = e.response?.data?.error || 'Login failed'
+    alert(errorMsg)
   }
 }
 
