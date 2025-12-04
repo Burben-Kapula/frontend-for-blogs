@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import api from "../services/api"
 import './css/Home.css'
+
 function Home() {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
@@ -100,7 +101,7 @@ function Home() {
     <div className="Home-container">
       <div className="Home-header">
         <div className="Home-title">
-          Welcome to <span className="Home-welcome-username">{user.username}</span>'s Blog
+          Welcome to <span className="Home-welcome-username">{user.username}</span>&apos;s Blog
         </div>
         <button onClick={handleLogout} className="Home-logout-button">
           Logout
@@ -112,7 +113,9 @@ function Home() {
           <div className="Home-welcome-text">
             Hello <span className="Home-welcome-username">{user.username}</span>, welcome to my web site!
           </div>
-
+          <Link to="/blogform" className="Home-create-blog-button">
+            Create New Blog
+          </Link>
         </div>
         
         {/* Мої блоги */}
@@ -188,11 +191,9 @@ function Home() {
             </div>
           )}
         </div>
-           )}
-         </div>
-       </div>
-     </div>
-   )
- }
+      </div>
+    </div>
+  )
+}
 
 export default Home
