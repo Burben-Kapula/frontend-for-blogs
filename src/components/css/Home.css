@@ -239,6 +239,37 @@
   outline-offset: -4px;
 }
 
+/* Navigation Buttons */
+.Home-nav-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.Home-nav-button {
+  background: var(--win98-button-face);
+  border: 1px solid;
+  border-color: var(--win98-button-dark-shadow) var(--win98-button-shadow) var(--win98-button-shadow) var(--win98-button-dark-shadow);
+  padding: 4px 12px;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  color: var(--win98-text);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.Home-nav-button:active {
+  border-color: var(--win98-button-shadow) var(--win98-button-dark-shadow) var(--win98-button-dark-shadow) var(--win98-button-shadow);
+  padding: 5px 11px 3px 13px;
+}
+
+.Home-nav-button:focus {
+  outline: 1px dotted #000000;
+  outline-offset: -4px;
+}
+
 /* Windows 98 Blogs Grid */
 .Home-blogs-grid {
   display: grid;
