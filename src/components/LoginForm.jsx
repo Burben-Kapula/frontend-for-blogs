@@ -6,7 +6,8 @@ import { useNavigate, Link } from "react-router-dom";
 
 function LoginForm(){
   const navigate=useNavigate()
- const [usernameOrEmail, setUsernameOrEmail] = useState('')
+ const [username, setUsername] = useState('')
+ const [email, setEmail] = useState('')
  const [password, setPassword] = useState('')
  const [showPassword, setShowPassword] = useState(false)
 
@@ -18,7 +19,7 @@ function LoginForm(){
   try {
     const res = await api.post(
       "/auth/login",
-      { usernameOrEmail: usernameOrEmail, password }
+      { usernameOrEmail: email, password }
     )
 
     if (res.data.token) {
@@ -56,9 +57,18 @@ function LoginForm(){
             <div className="LoginForm-input-group">
               <input 
                 type="text" 
-                placeholder="Enter username or email:" 
-                value={usernameOrEmail}
-                onChange={(e)=> {setUsernameOrEmail(e.target.value)}}
+                placeholder="Enter your name:" 
+                value={username}
+                onChange={(e)=> {setUsername(e.target.value)}}
+                className="LoginForm-input"
+              />
+            </div>
+            <div className="LoginForm-input-group">
+              <input 
+                type="email" 
+                placeholder="Enter email:" 
+                value={email}
+                onChange={(e)=>{setEmail(e.target.value)}}
                 className="LoginForm-input"
               />
             </div>
