@@ -112,9 +112,7 @@ function Home() {
           <div className="Home-welcome-text">
             Hello <span className="Home-welcome-username">{user.username}</span>, welcome to my web site!
           </div>
-          <Link to="/blogform" className="Home-create-blog-button">
-            Create New Blog
-          </Link>
+
         </div>
         
         {/* Мої блоги */}
@@ -133,7 +131,7 @@ function Home() {
           ) : myBlogs.length === 0 ? (
             <div className="Home-empty-state">
               <div className="Home-empty-icon">📝</div>
-              <div>You haven't created any blogs yet!</div>
+              <div>You haven&apos;t created any blogs yet!</div>
             </div>
           ) : (
             myBlogs.map(blog => (
@@ -190,29 +188,11 @@ function Home() {
             </div>
           )}
         </div>
-          ) : (
-            blogs.map(blog => (
-              <div key={blog.id} className="Home-blog-item">
-                <div className="Home-blog-title">{blog.title}</div>
-                <div className="Home-blog-content">{blog.content}</div>
-                <div className="Home-blog-meta">
-                  <span className="Home-blog-author">Author: {blog.author?.username || 'Unknown'}</span>
-                  <span className="Home-blog-date">
-                    {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'Unknown date'}
-                  </span>
-                </div>
-                <div className="Home-blog-actions">
-                  <button className="Home-blog-action-button">Edit</button>
-                  <button className="Home-blog-action-button">Delete</button>
-
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
+           )}
+         </div>
+       </div>
+     </div>
+   )
+ }
 
 export default Home
