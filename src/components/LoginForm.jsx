@@ -64,15 +64,6 @@ function LoginForm(){
             </div>
             <div className="LoginForm-input-group">
               <input 
-                type="email" 
-                placeholder="Enter email:" 
-                value={email}
-                onChange={(e)=>{setEmail(e.target.value)}}
-                className="LoginForm-input"
-              />
-            </div>
-            <div className="LoginForm-input-group">
-              <input 
                 type={showPassword ? "text" : "password"} 
                 placeholder="Enter password:"
                 value={password}
