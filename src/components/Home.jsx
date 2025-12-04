@@ -6,25 +6,44 @@ function Home() {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
   const [blogs, setBlogs] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    const userData = localStorage.getItem('user')
-    
-    if (!token || !userData) {
-      navigate("/")
-      return
+    // Перевіряємо авторизацію при завантаженні
+    const checkAuth = () => {
+      const token = localStorage.getItem('token')
+      const userData = localStorage.getItem('user')
+      
+      if (!token || !userData) {
+        navigate("/")
+        return
+      }
+      
+      try {
+        const parsedUser = JSON.parse(userData)
+        setUser(parsedUser)
+        
+        // Завантаження блогів
+        loadBlogs()
+      } catch (error) {
+        console.error('Error parsing user data:', error)
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        navigate("/")
+      }
+    }
+
+    const loadBlogs = async () => {
+      try {
+        const res = await api.get('/blogs')
+        setBlogs(res.data)
+      } catch (err) {
+        console.error('Failed to load blogs:', err)
+      }
     }
     
-    const parsedUser = JSON.parse(userData)
-    setUser(parsedUser)
-    
-    // Завантаження блогів
-    api.get('/blogs').then(res => {
-      setBlogs(res.data)
-    }).catch(err => {
-      console.error('Failed to load blogs:', err)
-    })
+    checkAuth()
   }, [navigate])
 
   const handleLogout = () => {
@@ -46,9 +65,6 @@ function Home() {
         <button onClick={handleLogout} className="Home-logout-button">
           Logout
         </button>
-        <Link to="/blogform" className="Home-blog-action-button">
-          Create new blog
-        </Link>
       </div>
       
       <div className="Home-content">
