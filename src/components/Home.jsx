@@ -5,7 +5,8 @@ import './css/Home.css'
 function Home() {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
-  const [blogs, setBlogs] = useState([])
+  const [myBlogs, setMyBlogs] = useState([])
+  const [allBlogs, setAllBlogs] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -36,10 +37,25 @@ function Home() {
 
     const loadBlogs = async () => {
       try {
-        const res = await api.get('/blogs')
-        setBlogs(res.data)
+        setLoading(true)
+        setError('')
+        
+        // Завантажуємо всі блоги
+        const allRes = await api.get('/blogs')
+        const shuffled = [...allRes.data].sort(() => Math.random() - 0.5)
+        setAllBlogs(shuffled)
+        
+        // Фільтруємо блоги поточного користувача
+        const myBlogsFiltered = shuffled.filter(blog => 
+          blog.author?._id === user.id || blog.author === user.id
+        )
+        setMyBlogs(myBlogsFiltered)
+        
       } catch (err) {
         console.error('Failed to load blogs:', err)
+        setError('Failed to load blogs')
+      } finally {
+        setLoading(false)
       }
     }
     
@@ -50,6 +66,30 @@ function Home() {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     navigate("/")
+  }
+
+  const handleRefreshBlogs = async () => {
+    try {
+      setLoading(true)
+      setError('')
+      
+      // Перемішуємо всі блоги для рандомізації
+      const allRes = await api.get('/blogs')
+      const shuffled = [...allRes.data].sort(() => Math.random() - 0.5)
+      setAllBlogs(shuffled)
+      
+      // Фільтруємо блоги поточного користувача
+      const myBlogsFiltered = shuffled.filter(blog => 
+        blog.author?._id === user.id || blog.author === user.id
+      )
+      setMyBlogs(myBlogsFiltered)
+      
+    } catch (err) {
+      console.error('Failed to refresh blogs:', err)
+      setError('Failed to refresh blogs')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (!user) {
@@ -77,13 +117,79 @@ function Home() {
           </Link>
         </div>
         
+        {/* Мої блоги */}
         <div className="Home-blogs-section">
-          <div className="Home-section-title">Blogs</div>
-          {blogs.length === 0 ? (
+          <div className="Home-section-title">
+            My Blogs ({myBlogs.length})
+            <button onClick={handleRefreshBlogs} className="Home-refresh-button">
+              Refresh
+            </button>
+          </div>
+          
+          {loading ? (
+            <div className="Home-loading">
+              Loading blogs...
+            </div>
+          ) : myBlogs.length === 0 ? (
             <div className="Home-empty-state">
               <div className="Home-empty-icon">📝</div>
-              <div>No blogs yet. Create your first blog!</div>
+              <div>You haven't created any blogs yet!</div>
             </div>
+          ) : (
+            myBlogs.map(blog => (
+              <div key={blog.id} className="Home-blog-item">
+                <div className="Home-blog-title">{blog.title}</div>
+                <div className="Home-blog-content">{blog.content}</div>
+                <div className="Home-blog-meta">
+                  <span className="Home-blog-author">Author: {blog.author?.username || 'Unknown'}</span>
+                  <span className="Home-blog-date">
+                    {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'Unknown date'}
+                  </span>
+                </div>
+                <div className="Home-blog-actions">
+                  <button className="Home-blog-action-button">Edit</button>
+                  <button className="Home-blog-action-button">Delete</button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+        
+        {/* Всі блоги - Grid 3x3 */}
+        <div className="Home-blogs-section">
+          <div className="Home-section-title">
+            All Blogs ({allBlogs.length})
+            <button onClick={handleRefreshBlogs} className="Home-refresh-button">
+              Shuffle
+            </button>
+          </div>
+          
+          {loading ? (
+            <div className="Home-loading">
+              Loading blogs...
+            </div>
+          ) : allBlogs.length === 0 ? (
+            <div className="Home-empty-state">
+              <div className="Home-empty-icon">📝</div>
+              <div>No blogs yet!</div>
+            </div>
+          ) : (
+            <div className="Home-blogs-grid">
+              {allBlogs.slice(0, 9).map(blog => (
+                <div key={blog.id} className="Home-blog-card">
+                  <div className="Home-blog-card-title">{blog.title}</div>
+                  <div className="Home-blog-card-content">{blog.content}</div>
+                  <div className="Home-blog-card-meta">
+                    <span className="Home-blog-card-author">{blog.author?.username || 'Unknown'}</span>
+                    <span className="Home-blog-card-date">
+                      {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'Unknown date'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
           ) : (
             blogs.map(blog => (
               <div key={blog.id} className="Home-blog-item">
