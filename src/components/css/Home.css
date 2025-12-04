@@ -188,3 +188,29 @@
   font-weight: bold;
   color: var(--win98-selected);
 }
+
+.Home-create-blog-button {
+  background: var(--win98-button-face);
+  border: 1px solid;
+  border-color: var(--win98-button-dark-shadow) var(--win98-button-shadow) var(--win98-button-shadow) var(--win98-button-dark-shadow);
+  padding: 6px 12px;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  color: var(--win98-text);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 12px;
+}
+
+.Home-create-blog-button:active {
+  border-color: var(--win98-button-shadow) var(--win98-button-dark-shadow) var(--win98-button-dark-shadow) var(--win98-button-shadow);
+  padding: 7px 11px 5px 13px;
+}
+
+.Home-create-blog-button:focus {
+  outline: 1px dotted #000000;
+  outline-offset: -4px;
+}

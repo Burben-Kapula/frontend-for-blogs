@@ -56,6 +56,9 @@ function Home() {
           <div className="Home-welcome-text">
             Hello <span className="Home-welcome-username">{user.username}</span>, welcome to my web site!
           </div>
+          <Link to="/blogform" className="Home-create-blog-button">
+            Create New Blog
+          </Link>
         </div>
         
         <div className="Home-blogs-section">

@@ -6,8 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 function LoginForm(){
   const navigate=useNavigate()
- const [username, setName] = useState('')
- const [email, setEmail] = useState('')
+ const [usernameOrEmail, setUsernameOrEmail] = useState('')
  const [password, setPassword] = useState('')
  const [showPassword, setShowPassword] = useState(false)
 
@@ -19,7 +18,7 @@ function LoginForm(){
   try {
     const res = await api.post(
       "/auth/login",
-      { usernameOrEmail: username || email, password }
+      { usernameOrEmail: usernameOrEmail, password }
     )
 
     if (res.data.token) {
@@ -58,8 +57,8 @@ function LoginForm(){
               <input 
                 type="text" 
                 placeholder="Enter username or email:" 
-                value={username}
-                onChange={(e)=> {setName(e.target.value)}}
+                value={usernameOrEmail}
+                onChange={(e)=> {setUsernameOrEmail(e.target.value)}}
                 className="LoginForm-input"
               />
             </div>
