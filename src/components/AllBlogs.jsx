@@ -106,7 +106,11 @@ function AllBlogs() {
   }
 
   if (!user) {
-    return null
+    return (
+      <div className="Home-loading">
+        Loading...
+      </div>
+    )
   }
 
   return (
@@ -151,7 +155,7 @@ function AllBlogs() {
             <div className="Home-loading">
               Loading blogs...
             </div>
-          ) : allBlogs.length === 0 ? (
+          ) : allBlogs && allBlogs.length === 0 ? (
             <div className="Home-empty-state">
               <div className="Home-empty-icon">📝</div>
               <div>No blogs yet!</div>

@@ -10,13 +10,6 @@ function Home() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  // Завантажуємо блоги коли user змінюється
-  useEffect(() => {
-    if (user) {
-      loadMyBlogs(user.id)
-    }
-  }, [user])
-
   useEffect(() => {
     // Перевіряємо авторизацію при завантаженні
     const checkAuth = () => {
@@ -67,6 +60,13 @@ function Home() {
     checkAuth()
   }, [navigate])
 
+  // Завантажуємо блоги коли user змінюється (але не при першому завантаженні)
+  useEffect(() => {
+    if (user && myBlogs.length === 0 && !loading) {
+      loadMyBlogs(user.id)
+    }
+  }, [user])
+
   const loadMyBlogs = async (userId) => {
     try {
       setLoading(true)
@@ -110,7 +110,11 @@ function Home() {
   }
 
   if (!user) {
-    return null
+    return (
+      <div className="Home-loading">
+        Loading...
+      </div>
+    )
   }
 
   return (
@@ -155,7 +159,7 @@ function Home() {
             <div className="Home-loading">
               Loading your blogs...
             </div>
-          ) : myBlogs.length === 0 ? (
+          ) : myBlogs && myBlogs.length === 0 ? (
             <div className="Home-empty-state">
               <div className="Home-empty-icon">📝</div>
               <div>You haven&apos;t created any blogs yet!</div>
