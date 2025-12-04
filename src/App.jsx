@@ -15,6 +15,7 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/all-blogs" element={<AllBlogs />} />
       <Route path="/blogform" element={<BlogForm/>}></Route>
+      <Route path="/edit-blog/:id" element={<BlogForm/>}></Route>
     </Routes>
   )
 }

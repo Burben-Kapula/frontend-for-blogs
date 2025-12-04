@@ -1,14 +1,37 @@
-import React, { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import React, { useState, useEffect } from "react"
+import { useNavigate, Link, useParams } from "react-router-dom"
 import api from "../services/api"
 import './css/BlogForm.css'
 
 function BlogForm() {
   const navigate = useNavigate()
+  const { id } = useParams()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
+
+  // Завантаження блогу для редагування
+  useEffect(() => {
+    if (id) {
+      setIsEditing(true)
+      const loadBlog = async () => {
+        try {
+          setLoading(true)
+          const res = await api.get(`/blogs/${id}`)
+          setTitle(res.data.title)
+          setContent(res.data.content)
+        } catch (err) {
+          console.error('Failed to load blog:', err)
+          setError('Failed to load blog')
+        } finally {
+          setLoading(false)
+        }
+      }
+      loadBlog()
+    }
+  }, [id])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -22,19 +45,29 @@ function BlogForm() {
     setError('')
 
     try {
-      const res = await api.post('/blogs', {
-        title: title.trim(),
-        content: content.trim()
-      })
+      let res
+      if (isEditing) {
+        // Оновлення блогу
+        res = await api.put(`/blogs/${id}`, {
+          title: title.trim(),
+          content: content.trim()
+        })
+      } else {
+        // Створення нового блогу
+        res = await api.post('/blogs', {
+          title: title.trim(),
+          content: content.trim()
+        })
+      }
 
       if (res.data.id) {
         navigate('/home')
       } else {
-        setError('Failed to create blog')
+        setError(isEditing ? 'Failed to update blog' : 'Failed to create blog')
       }
     } catch (err) {
-      console.error('Blog creation error:', err)
-      setError(err.response?.data?.error || 'Failed to create blog')
+      console.error('Blog error:', err)
+      setError(err.response?.data?.error || (isEditing ? 'Failed to update blog' : 'Failed to create blog'))
     } finally {
       setLoading(false)
     }
@@ -53,7 +86,7 @@ function BlogForm() {
       
       <div className="BlogForm-content">
         <div className="BlogForm-header">
-          <div className="BlogForm-title">Create New Blog</div>
+          <div className="BlogForm-title">{isEditing ? 'Edit Blog' : 'Create New Blog'}</div>
           <div className="BlogForm-underline"></div>
         </div>
 

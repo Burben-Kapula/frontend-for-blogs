@@ -92,6 +92,20 @@ function Home() {
     }
   }
 
+  const handleDeleteBlog = async (blogId) => {
+    if (!confirm('Are you sure you want to delete this blog?')) {
+      return
+    }
+
+    try {
+      await api.delete(`/blogs/${blogId}`)
+      setMyBlogs(myBlogs.filter(blog => blog.id !== blogId))
+    } catch (err) {
+      console.error('Failed to delete blog:', err)
+      setError('Failed to delete blog')
+    }
+  }
+
   if (!user) {
     return null
   }
@@ -147,8 +161,15 @@ function Home() {
                   </span>
                 </div>
                 <div className="Home-blog-actions">
-                  <button className="Home-blog-action-button">Edit</button>
-                  <button className="Home-blog-action-button">Delete</button>
+                  <Link to={`/edit-blog/${blog.id}`} className="Home-blog-action-button">
+                    Edit
+                  </Link>
+                  <button 
+                    onClick={() => handleDeleteBlog(blog.id)} 
+                    className="Home-blog-action-button"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))
