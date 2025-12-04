@@ -22,14 +22,10 @@ function BlogForm() {
     setError('')
 
     try {
-      const blogData = {
+      const res = await api.post('/blogs', {
         title: title.trim(),
         content: content.trim()
-      }
-      console.log('Creating blog:', blogData) // Debug log
-      
-      const res = await api.post('/blogs', blogData)
-      console.log('Blog created response:', res.data) // Debug log
+      })
 
       if (res.data.id) {
         navigate('/home')
@@ -38,7 +34,6 @@ function BlogForm() {
       }
     } catch (err) {
       console.error('Blog creation error:', err)
-      console.error('Error response:', err.response?.data) // Debug log
       setError(err.response?.data?.error || 'Failed to create blog')
     } finally {
       setLoading(false)

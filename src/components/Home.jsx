@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import api from "../services/api"
 import './css/Home.css'
-
 function Home() {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
   const [myBlogs, setMyBlogs] = useState([])
+  const [allBlogs, setAllBlogs] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -26,7 +26,7 @@ function Home() {
         setUser(parsedUser)
         
         // Завантаження блогів
-        loadMyBlogs(parsedUser.id)
+        loadBlogs()
       } catch (error) {
         console.error('Error parsing user data:', error)
         localStorage.removeItem('token')
@@ -35,17 +35,19 @@ function Home() {
       }
     }
 
-    const loadMyBlogs = async (userId) => {
+    const loadBlogs = async () => {
       try {
         setLoading(true)
         setError('')
         
         // Завантажуємо всі блоги
         const allRes = await api.get('/blogs')
+        const shuffled = [...allRes.data].sort(() => Math.random() - 0.5)
+        setAllBlogs(shuffled)
         
         // Фільтруємо блоги поточного користувача
-        const myBlogsFiltered = allRes.data.filter(blog => 
-          blog.author?._id === userId || blog.author === userId
+        const myBlogsFiltered = shuffled.filter(blog => 
+          blog.author?._id === user.id || blog.author === user.id
         )
         setMyBlogs(myBlogsFiltered)
         
@@ -60,83 +62,55 @@ function Home() {
     checkAuth()
   }, [navigate])
 
-  // Завантажуємо блоги коли user змінюється (але не при першому завантаженні)
-  useEffect(() => {
-    if (user && myBlogs.length === 0 && !loading) {
-      loadMyBlogs(user.id)
-    }
-  }, [user])
-
-  const loadMyBlogs = async (userId) => {
-    try {
-      setLoading(true)
-      setError('')
-      
-      // Завантажуємо всі блоги
-      const allRes = await api.get('/blogs')
-      
-      // Фільтруємо блоги поточного користувача
-      const myBlogsFiltered = allRes.data.filter(blog => 
-        blog.author?._id === userId || blog.author === userId
-      )
-      setMyBlogs(myBlogsFiltered)
-      
-    } catch (err) {
-      console.error('Failed to load blogs:', err)
-      setError('Failed to load blogs')
-    } finally {
-      setLoading(false)
-    }
-  }
-
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     navigate("/")
   }
 
-  const handleDeleteBlog = async (blogId) => {
-    if (!confirm('Are you sure you want to delete this blog?')) {
-      return
-    }
-
+  const handleRefreshBlogs = async () => {
     try {
-      await api.delete(`/blogs/${blogId}`)
-      setMyBlogs(myBlogs.filter(blog => blog.id !== blogId))
+      setLoading(true)
+      setError('')
+      
+      // Перемішуємо всі блоги для рандомізації
+      const allRes = await api.get('/blogs')
+      const shuffled = [...allRes.data].sort(() => Math.random() - 0.5)
+      setAllBlogs(shuffled)
+      
+      // Фільтруємо блоги поточного користувача
+      const myBlogsFiltered = shuffled.filter(blog => 
+        blog.author?._id === user.id || blog.author === user.id
+      )
+      setMyBlogs(myBlogsFiltered)
+      
     } catch (err) {
-      console.error('Failed to delete blog:', err)
-      setError('Failed to delete blog')
+      console.error('Failed to refresh blogs:', err)
+      setError('Failed to refresh blogs')
+    } finally {
+      setLoading(false)
     }
   }
 
   if (!user) {
-    return (
-      <div className="Home-loading">
-        Loading...
-      </div>
-    )
+    return null
   }
 
   return (
     <div className="Home-container">
       <div className="Home-header">
         <div className="Home-title">
-          <span className="Home-welcome-username">{user.username}</span>&apos;s Profile
+          Welcome to <span className="Home-welcome-username">{user.username}</span>'s Blog
         </div>
-        <div className="Home-nav-buttons">
-          <Link to="/all-blogs" className="Home-nav-button">
-            All Blogs
-          </Link>
-          <button onClick={handleLogout} className="Home-logout-button">
-            Logout
-          </button>
-        </div>
+        <button onClick={handleLogout} className="Home-logout-button">
+          Logout
+        </button>
       </div>
       
       <div className="Home-content">
         <div className="Home-welcome">
           <div className="Home-welcome-text">
-            Welcome back, <span className="Home-welcome-username">{user.username}</span>!
+            Hello <span className="Home-welcome-username">{user.username}</span>, welcome to my web site!
           </div>
           <Link to="/blogform" className="Home-create-blog-button">
             Create New Blog
@@ -147,25 +121,19 @@ function Home() {
         <div className="Home-blogs-section">
           <div className="Home-section-title">
             My Blogs ({myBlogs.length})
+            <button onClick={handleRefreshBlogs} className="Home-refresh-button">
+              Refresh
+            </button>
           </div>
-          
-          {error && (
-            <div className="Home-error">
-              {error}
-            </div>
-          )}
           
           {loading ? (
             <div className="Home-loading">
-              Loading your blogs...
+              Loading blogs...
             </div>
-          ) : myBlogs && myBlogs.length === 0 ? (
+          ) : myBlogs.length === 0 ? (
             <div className="Home-empty-state">
               <div className="Home-empty-icon">📝</div>
-              <div>You haven&apos;t created any blogs yet!</div>
-              <Link to="/blogform" className="Home-create-blog-button">
-                Create Your First Blog
-              </Link>
+              <div>You haven't created any blogs yet!</div>
             </div>
           ) : (
             myBlogs.map(blog => (
@@ -179,15 +147,64 @@ function Home() {
                   </span>
                 </div>
                 <div className="Home-blog-actions">
-                  <Link to={`/edit-blog/${blog.id}`} className="Home-blog-action-button">
-                    Edit
-                  </Link>
-                  <button 
-                    onClick={() => handleDeleteBlog(blog.id)} 
-                    className="Home-blog-action-button"
-                  >
-                    Delete
-                  </button>
+                  <button className="Home-blog-action-button">Edit</button>
+                  <button className="Home-blog-action-button">Delete</button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+        
+        {/* Всі блоги - Grid 3x3 */}
+        <div className="Home-blogs-section">
+          <div className="Home-section-title">
+            All Blogs ({allBlogs.length})
+            <button onClick={handleRefreshBlogs} className="Home-refresh-button">
+              Shuffle
+            </button>
+          </div>
+          
+          {loading ? (
+            <div className="Home-loading">
+              Loading blogs...
+            </div>
+          ) : allBlogs.length === 0 ? (
+            <div className="Home-empty-state">
+              <div className="Home-empty-icon">📝</div>
+              <div>No blogs yet!</div>
+            </div>
+          ) : (
+            <div className="Home-blogs-grid">
+              {allBlogs.slice(0, 9).map(blog => (
+                <div key={blog.id} className="Home-blog-card">
+                  <div className="Home-blog-card-title">{blog.title}</div>
+                  <div className="Home-blog-card-content">{blog.content}</div>
+                  <div className="Home-blog-card-meta">
+                    <span className="Home-blog-card-author">{blog.author?.username || 'Unknown'}</span>
+                    <span className="Home-blog-card-date">
+                      {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'Unknown date'}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+          ) : (
+            blogs.map(blog => (
+              <div key={blog.id} className="Home-blog-item">
+                <div className="Home-blog-title">{blog.title}</div>
+                <div className="Home-blog-content">{blog.content}</div>
+                <div className="Home-blog-meta">
+                  <span className="Home-blog-author">Author: {blog.author?.username || 'Unknown'}</span>
+                  <span className="Home-blog-date">
+                    {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'Unknown date'}
+                  </span>
+                </div>
+                <div className="Home-blog-actions">
+                  <button className="Home-blog-action-button">Edit</button>
+                  <button className="Home-blog-action-button">Delete</button>
+
                 </div>
               </div>
             ))
