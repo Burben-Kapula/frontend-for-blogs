@@ -10,7 +10,7 @@ function LoginForm(){
  const [email, setEmail] = useState('')
  const [password, setPassword] = useState('')
  const [showPassword, setShowPassword] = useState(false)
-
+console.log('test')
 
 
  async function submit(e) {
