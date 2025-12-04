@@ -10,6 +10,13 @@ function Home() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
+  // Завантажуємо блоги коли user змінюється
+  useEffect(() => {
+    if (user) {
+      loadMyBlogs(user.id)
+    }
+  }, [user])
+
   useEffect(() => {
     // Перевіряємо авторизацію при завантаженні
     const checkAuth = () => {
@@ -59,6 +66,28 @@ function Home() {
     
     checkAuth()
   }, [navigate])
+
+  const loadMyBlogs = async (userId) => {
+    try {
+      setLoading(true)
+      setError('')
+      
+      // Завантажуємо всі блоги
+      const allRes = await api.get('/blogs')
+      
+      // Фільтруємо блоги поточного користувача
+      const myBlogsFiltered = allRes.data.filter(blog => 
+        blog.author?._id === userId || blog.author === userId
+      )
+      setMyBlogs(myBlogsFiltered)
+      
+    } catch (err) {
+      console.error('Failed to load blogs:', err)
+      setError('Failed to load blogs')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('token')

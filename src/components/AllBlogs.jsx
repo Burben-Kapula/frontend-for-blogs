@@ -10,6 +10,13 @@ function AllBlogs() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
+  // Завантажуємо блоги коли user змінюється
+  useEffect(() => {
+    if (user) {
+      loadAllBlogs()
+    }
+  }, [user])
+
   useEffect(() => {
     // Перевіряємо авторизацію при завантаженні
     const checkAuth = () => {
@@ -55,6 +62,24 @@ function AllBlogs() {
     
     checkAuth()
   }, [navigate])
+
+  const loadAllBlogs = async () => {
+    try {
+      setLoading(true)
+      setError('')
+      
+      // Завантажуємо всі блоги з рандомізацією
+      const allRes = await api.get('/blogs')
+      const shuffled = [...allRes.data].sort(() => Math.random() - 0.5)
+      setAllBlogs(shuffled)
+      
+    } catch (err) {
+      console.error('Failed to load blogs:', err)
+      setError('Failed to load blogs')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleRefreshBlogs = async () => {
     try {
