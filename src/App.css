@@ -1,0 +1,124 @@
+@import './styles/win98.css';
+
+.App {
+  width: 100%;
+  height: 100vh;
+  background: var(--win98-desktop);
+  font-family: 'Tahoma', 'MS Gothic', sans-serif;
+}
+
+.App-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Windows 98 Navigation */
+.App-nav {
+  background: var(--win98-window-bg);
+  border: 2px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.App-nav-link {
+  padding: 4px 8px;
+  margin: 0 2px;
+  background: var(--win98-button-face);
+  border: 1px solid;
+  border-color: var(--win98-button-dark-shadow) var(--win98-button-shadow) var(--win98-button-shadow) var(--win98-button-dark-shadow);
+  color: var(--win98-text);
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.App-nav-link:hover {
+  text-decoration: none;
+  background: var(--win98-selected);
+  color: var(--win98-selected-text);
+}
+
+.App-nav-link.active {
+  background: var(--win98-selected);
+  color: var(--win98-selected-text);
+  border-color: var(--win98-border-light) var(--win98-border-dark) var(--win98-border-dark) var(--win98-border-light);
+}
+
+/* Windows 98 Cards/Panels */
+.App-card {
+  background: var(--win98-window-bg);
+  border: 2px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.App-card h2 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--win98-inset-dark);
+}
+
+.App-card p {
+  font-size: 11px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+/* Windows 98 Form Styles */
+.App-form {
+  background: var(--win98-window-bg);
+  border: 2px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  padding: 16px;
+  max-width: 400px;
+}
+
+.App-form-group {
+  margin-bottom: 12px;
+}
+
+.App-form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.App-form-input {
+  width: 100%;
+}
+
+.App-form-button {
+  margin-right: 8px;
+}
+
+.App-form-error {
+  background: #ff0000;
+  color: #ffffff;
+  padding: 4px 8px;
+  border: 1px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  margin-bottom: 8px;
+  font-size: 10px;
+}
+
+.App-form-success {
+  background: #00ff00;
+  color: #000000;
+  padding: 4px 8px;
+  border: 1px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  margin-bottom: 8px;
+  font-size: 10px;
+}

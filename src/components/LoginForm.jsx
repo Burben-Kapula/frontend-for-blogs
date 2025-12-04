@@ -38,58 +38,73 @@ function LoginForm(){
 
 
   return (
-    <>
-      <div className="container">
-        <div className="header">
-          <div className="text">Login</div>
-          <div className="underline"></div>
+    <div className="LoginForm-container">
+      <div className="LoginForm-titlebar">
+        <span className="LoginForm-titlebar-text">Login</span>
+        <div className="LoginForm-titlebar-controls">
+          <button className="LoginForm-titlebar-button">_</button>
+          <button className="LoginForm-titlebar-button">□</button>
+          <button className="LoginForm-titlebar-button">×</button>
+        </div>
+      </div>
+      <div className="LoginForm-content">
+        <div className="LoginForm-header">
+          <div className="LoginForm-title">Login</div>
+          <div className="LoginForm-underline"></div>
         </div>
         <form onSubmit={submit}>
-          <div className="inputs">
-              {/* Тут ім'я */}
-            <div className="input">
-              <input type="text" placeholder="Enter name: " onChange={(e)=> {setName(e.target.value)}}/>
+          <div className="LoginForm-inputs">
+            <div className="LoginForm-input-group">
+              <input 
+                type="text" 
+                placeholder="Enter username or email:" 
+                value={username}
+                onChange={(e)=> {setName(e.target.value)}}
+                className="LoginForm-input"
+              />
             </div>
-            <div className="input">
-              {/*Тут пошта*/}
-              <input type="email" placeholder="Enter email: " onChange={(e)=>{setEmail(e.target.value)}}/>
+            <div className="LoginForm-input-group">
+              <input 
+                type="email" 
+                placeholder="Enter email:" 
+                value={email}
+                onChange={(e)=>{setEmail(e.target.value)}}
+                className="LoginForm-input"
+              />
             </div>
-            <div className="input" style={{ position: 'relative' }}>
-              {/*Тут пароль*/}
+            <div className="LoginForm-input-group">
               <input 
                 type={showPassword ? "text" : "password"} 
-                placeholder="Enter password: "
+                placeholder="Enter password:"
+                value={password}
                 onChange={(e)=> {setPassword(e.target.value)}}
-                style={{ paddingRight: '40px' }}
+                className="LoginForm-input"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                style={{
-                  position: 'absolute',
-                  right: '10px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '14px'
-                }}
+                className="LoginForm-password-toggle"
               >
                 {showPassword ? '👁️' : '👁️‍🗨️'}
               </button>
             </div>
-              <button className="forgot-password"><span>Forgot password</span></button>
-              {/*Тут кнопки для логіна та регестрації*/}
-            <div className="submit-container">
-              <button type="submit"><span>Login</span></button>
-              {/* Change '/signup' to the correct route for your sign-up page */}
-              <Link to="/signup">Sign Up</Link>
+            <div className="LoginForm-forgot-password">
+              <button type="button" className="LoginForm-forgot-link">
+                Forgot password?
+              </button>
+            </div>
+            <div className="LoginForm-submit-container">
+              <button type="submit" className="LoginForm-submit-button">
+                Login
+              </button>
+              <Link to="/signup" className="LoginForm-signup-link">
+                Sign Up
+              </Link>
             </div>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 export default LoginForm

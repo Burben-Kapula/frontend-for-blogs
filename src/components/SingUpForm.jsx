@@ -33,68 +33,73 @@ function SingUpForm() {
   } catch (e) {
     console.error('SIGNUP ERROR', e.response?.status, e.response?.data || e.message)
     console.error('Full error:', e)
-    alert(e.response?.data?.error || e.response?.data || e.message || "Registration failed")
+    const errorMsg = e.response?.data?.error || e.response?.data || e.message || "Registration failed"
+    console.log('Showing error:', errorMsg)
+    alert(errorMsg)
   }
 }
 
 
   return (
-    <>
-      <div className="container">
-        <div className="header">
-          <div className="text">Sign Up</div>
-          <div className="underline"></div>
+    <div className="SingUpForm-container">
+      <div className="SingUpForm-titlebar">
+        <span className="SingUpForm-titlebar-text">Sign Up</span>
+        <div className="SingUpForm-titlebar-controls">
+          <button className="SingUpForm-titlebar-button">_</button>
+          <button className="SingUpForm-titlebar-button">□</button>
+          <button className="SingUpForm-titlebar-button">×</button>
         </div>
-        <div className="inputs">
-          <form onSubmit={handleSubmit}>
-            <div className="input">
+      </div>
+      <div className="SingUpForm-content">
+        <div className="SingUpForm-header">
+          <div className="SingUpForm-title">Sign Up</div>
+          <div className="SingUpForm-underline"></div>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="SingUpForm-inputs">
+            <div className="SingUpForm-input-group">
               <input
                 type="text"
-                placeholder="Enter name: "
+                placeholder="Enter username:"
                 value={username}
                 onChange={(e) => setName(e.target.value)}
+                className="SingUpForm-input"
               />
             </div>
-            <div className="input">
+            <div className="SingUpForm-input-group">
               <input
                 type="email"
-                placeholder="Enter email: "
+                placeholder="Enter email:"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="SingUpForm-input"
               />
             </div>
-            <div className="input" style={{ position: 'relative' }}>
+            <div className="SingUpForm-input-group">
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter password: "
+                placeholder="Enter password:"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                style={{ paddingRight: '40px' }}
+                className="SingUpForm-input"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                style={{
-                  position: 'absolute',
-                  right: '10px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '14px'
-                }}
+                className="SingUpForm-password-toggle"
               >
                 {showPassword ? '👁️' : '👁️‍🗨️'}
               </button>
             </div>
-            <div className="submit-container">
-              <button className="submit" type="submit"><span>Sign Up</span></button>
+            <div className="SingUpForm-submit-container">
+              <button className="SingUpForm-submit-button" type="submit">
+                Sign Up
+              </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 }
 

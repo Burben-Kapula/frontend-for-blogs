@@ -1,0 +1,251 @@
+/* Windows 98 Blog Form Styles */
+
+.BlogForm-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--win98-window-bg);
+  border: 2px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  padding: 0;
+  min-width: 400px;
+  max-width: 600px;
+  width: 90vw;
+  max-height: 80vh;
+  box-shadow: 
+    1px 1px 0 var(--win98-border-light),
+    -1px -1px 0 var(--win98-border-dark);
+}
+
+.BlogForm-titlebar {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: var(--win98-selected-text);
+  padding: 3px 6px;
+  font-weight: bold;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+.BlogForm-titlebar-text {
+  flex: 1;
+}
+
+.BlogForm-titlebar-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.BlogForm-titlebar-button {
+  width: 16px;
+  height: 14px;
+  background: var(--win98-button-face);
+  border: 1px solid;
+  border-color: var(--win98-button-shadow) var(--win98-button-dark-shadow) var(--win98-button-dark-shadow) var(--win98-button-shadow);
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--win98-text);
+}
+
+.BlogForm-content {
+  padding: 20px;
+  max-height: calc(80vh - 40px);
+  overflow-y: auto;
+}
+
+.BlogForm-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.BlogForm-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--win98-text);
+  margin-bottom: 8px;
+}
+
+.BlogForm-underline {
+  width: 100px;
+  height: 2px;
+  background: var(--win98-inset-dark);
+  margin: 0 auto;
+}
+
+.BlogForm-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.BlogForm-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.BlogForm-label {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--win98-text);
+}
+
+.BlogForm-input {
+  width: 100%;
+  padding: 6px 8px;
+  background: var(--win98-window-bg);
+  border: 1px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  color: var(--win98-text);
+  outline: none;
+}
+
+.BlogForm-input:focus {
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  outline: 1px dotted #000000;
+  outline-offset: -2px;
+}
+
+.BlogForm-input:disabled {
+  background: var(--win98-inset-light);
+  color: var(--win98-inset-dark);
+}
+
+.BlogForm-textarea {
+  width: 100%;
+  padding: 6px 8px;
+  background: var(--win98-window-bg);
+  border: 1px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  color: var(--win98-text);
+  outline: none;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.BlogForm-textarea:focus {
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  outline: 1px dotted #000000;
+  outline-offset: -2px;
+}
+
+.BlogForm-textarea:disabled {
+  background: var(--win98-inset-light);
+  color: var(--win98-inset-dark);
+}
+
+.BlogForm-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.BlogForm-submit-button {
+  background: var(--win98-button-face);
+  border: 1px solid;
+  border-color: var(--win98-button-dark-shadow) var(--win98-button-shadow) var(--win98-button-shadow) var(--win98-button-dark-shadow);
+  padding: 6px 16px;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  color: var(--win98-text);
+  min-width: 80px;
+}
+
+.BlogForm-submit-button:active {
+  border-color: var(--win98-button-shadow) var(--win98-button-dark-shadow) var(--win98-button-dark-shadow) var(--win98-button-shadow);
+  padding: 7px 15px 5px 17px;
+}
+
+.BlogForm-submit-button:focus {
+  outline: 1px dotted #000000;
+  outline-offset: -4px;
+}
+
+.BlogForm-submit-button:disabled {
+  background: var(--win98-inset-light);
+  color: var(--win98-inset-dark);
+  cursor: not-allowed;
+}
+
+.BlogForm-cancel-button {
+  background: var(--win98-button-face);
+  border: 1px solid;
+  border-color: var(--win98-button-dark-shadow) var(--win98-button-shadow) var(--win98-button-shadow) var(--win98-button-dark-shadow);
+  padding: 6px 16px;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  color: var(--win98-text);
+  text-decoration: none;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+}
+
+.BlogForm-cancel-button:active {
+  border-color: var(--win98-button-shadow) var(--win98-button-dark-shadow) var(--win98-button-dark-shadow) var(--win98-button-shadow);
+  padding: 7px 15px 5px 17px;
+}
+
+.BlogForm-cancel-button:focus {
+  outline: 1px dotted #000000;
+  outline-offset: -4px;
+}
+
+/* Windows 98 Error Message */
+.BlogForm-error {
+  background: #ff0000;
+  color: #ffffff;
+  padding: 6px 8px;
+  border: 1px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  margin-bottom: 12px;
+  font-size: 10px;
+  font-family: 'Tahoma', sans-serif;
+}
+
+/* Windows 98 Success Message */
+.BlogForm-success {
+  background: #00ff00;
+  color: #000000;
+  padding: 6px 8px;
+  border: 1px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  margin-bottom: 12px;
+  font-size: 10px;
+  font-family: 'Tahoma', sans-serif;
+}
+
+/* Character counter */
+.BlogForm-char-counter {
+  font-size: 10px;
+  color: var(--win98-inset-dark);
+  text-align: right;
+  margin-top: 2px;
+}
+
+.BlogForm-char-counter.warning {
+  color: #ff6600;
+}
+
+.BlogForm-char-counter.error {
+  color: #ff0000;
+}

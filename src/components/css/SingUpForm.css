@@ -1,107 +1,176 @@
+/* Windows 98 Sign Up Form Styles */
 
-
-
-.container {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-top: 200px;
-    width: 600px;
-    padding-bottom: 30px;
-    background: linear-gradient(#fdf7f1, #fff8e7);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-.header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 9px;
-    width: 100%;
-    margin-top: 30px;
+.SingUpForm-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--win98-window-bg);
+  border: 2px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  padding: 0;
+  min-width: 320px;
+  box-shadow: 
+    1px 1px 0 var(--win98-border-light),
+    -1px -1px 0 var(--win98-border-dark);
 }
 
-
-.text {
-    color: hsl(225, 85%, 45%);
-    font-size: 48px;
-    font-weight: 700;
+.SingUpForm-titlebar {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: var(--win98-selected-text);
+  padding: 3px 6px;
+  font-weight: bold;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
 }
 
-.underline {
-    width: 61px;
-    height: 6px;
-    background-color: #3c009d;
-    border-radius: 9px;
-}
-.inputs {
-    margin-top: 55px;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+.SingUpForm-titlebar-text {
+  flex: 1;
 }
 
-
-.input {
-    display: flex;
-    align-items: center;
-    margin: auto;
-    width: 480px;
-    height: 80px;
-    background: #eaeaea;
-    border-radius: 6px;
-
+.SingUpForm-titlebar-controls {
+  display: flex;
+  gap: 2px;
 }
 
-.input input {
-    height: 50px;
-    width: 400px;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #797979;
-    font-size:19px;
+.SingUpForm-titlebar-button {
+  width: 16px;
+  height: 14px;
+  background: var(--win98-button-face);
+  border: 1px solid;
+  border-color: var(--win98-button-shadow) var(--win98-button-dark-shadow) var(--win98-button-dark-shadow) var(--win98-button-shadow);
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--win98-text);
 }
 
-.forgot-password {
-    padding-left: 62px;
-    margin-top: 27px;
-    color: #797979;
-    font-size: 18px;
-    background: transparent;
-    border: none;
+.SingUpForm-content {
+  padding: 20px;
 }
 
-.forgot-password span {
-    color: #4c00b4;
-    cursor: pointer;
+.SingUpForm-header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.submit-container {
-    display: flex;
-    gap: 30px;
-    margin: 60px auto;
+.SingUpForm-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--win98-text);
+  margin-bottom: 8px;
 }
 
-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 220px;
-    height: 59px;
-    color: black;
-    background: #EAEAEA;
-    font-size: 19px;
-    font-weight: 700;
-    cursor: pointer;
-    border-radius: 50px;
+.SingUpForm-underline {
+  width: 80px;
+  height: 2px;
+  background: var(--win98-inset-dark);
+  margin: 0 auto;
 }
 
-button:hover{
-    background: #4c00b4;
-    color:#EAEAEA
-    
+.SingUpForm-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-a:hover {
-    color: white;
+.SingUpForm-input-group {
+  position: relative;
+}
+
+.SingUpForm-input {
+  width: 100%;
+  padding: 6px 8px;
+  background: var(--win98-window-bg);
+  border: 1px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  color: var(--win98-text);
+  outline: none;
+}
+
+.SingUpForm-input:focus {
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  outline: 1px dotted #000000;
+  outline-offset: -2px;
+}
+
+.SingUpForm-password-toggle {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px;
+  color: var(--win98-text);
+}
+
+.SingUpForm-password-toggle:hover {
+  background: var(--win98-selected);
+  color: var(--win98-selected-text);
+}
+
+.SingUpForm-submit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.SingUpForm-submit-button {
+  background: var(--win98-button-face);
+  border: 1px solid;
+  border-color: var(--win98-button-dark-shadow) var(--win98-button-shadow) var(--win98-button-shadow) var(--win98-button-dark-shadow);
+  padding: 6px 16px;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  color: var(--win98-text);
+  min-width: 80px;
+}
+
+.SingUpForm-submit-button:active {
+  border-color: var(--win98-button-shadow) var(--win98-button-dark-shadow) var(--win98-button-dark-shadow) var(--win98-button-shadow);
+  padding: 7px 15px 5px 17px;
+}
+
+.SingUpForm-submit-button:focus {
+  outline: 1px dotted #000000;
+  outline-offset: -4px;
+}
+
+/* Windows 98 Error Message */
+.SingUpForm-error {
+  background: #ff0000;
+  color: #ffffff;
+  padding: 6px 8px;
+  border: 1px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  margin-bottom: 12px;
+  font-size: 10px;
+  font-family: 'Tahoma', sans-serif;
+}
+
+/* Windows 98 Success Message */
+.SingUpForm-success {
+  background: #00ff00;
+  color: #000000;
+  padding: 6px 8px;
+  border: 1px solid;
+  border-color: var(--win98-border-dark) var(--win98-border-light) var(--win98-border-light) var(--win98-border-dark);
+  margin-bottom: 12px;
+  font-size: 10px;
+  font-family: 'Tahoma', sans-serif;
 }
