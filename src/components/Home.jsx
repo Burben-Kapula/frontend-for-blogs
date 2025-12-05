@@ -47,7 +47,7 @@ function Home() {
         
         // Фільтруємо блоги поточного користувача
         const myBlogsFiltered = shuffled.filter(blog => 
-          blog.author?._id === user.id || blog.author === user.id
+          (blog.author && blog.author._id === user.id) || blog.author === user.id
         )
         setMyBlogs(myBlogsFiltered)
         
@@ -231,7 +231,7 @@ function Home() {
           )}
         </div>
       </div>
-    </div>
+    
   )
 }
 
