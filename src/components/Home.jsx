@@ -225,7 +225,6 @@ function Home() {
                 <div className="Home-blog-actions">
                   <button className="Home-blog-action-button">Edit</button>
                   <button className="Home-blog-action-button">Delete</button>
-
                 </div>
               </div>
             ))
