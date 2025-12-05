@@ -211,27 +211,33 @@ function Home() {
             </div>
           )}
         </div>
-          ) : (
-            blogs.map(blog => (
-              <div key={blog.id} className="Home-blog-item">
-                <div className="Home-blog-title">{blog.title}</div>
-                <div className="Home-blog-content">{blog.content}</div>
-                <div className="Home-blog-meta">
-                  <span className="Home-blog-author">Author: {blog.author?.username || 'Unknown'}</span>
-                  <span className="Home-blog-date">
-                    {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'Unknown date'}
-                  </span>
+        {allBlogs.length > 9 && (
+          <div className="Home-blogs-section">
+            <div className="Home-section-title">
+              More Blogs ({allBlogs.length - 9})
+            </div>
+            <div className="Home-blogs-grid">
+              {allBlogs.slice(9).map(blog => (
+                <div key={blog.id} className="Home-blog-item">
+                  <div className="Home-blog-title">{blog.title}</div>
+                  <div className="Home-blog-content">{blog.content}</div>
+                  <div className="Home-blog-meta">
+                    <span className="Home-blog-author">Author: {blog.author?.username || 'Unknown'}</span>
+                    <span className="Home-blog-date">
+                      {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'Unknown date'}
+                    </span>
+                  </div>
+                  <div className="Home-blog-actions">
+                    <button className="Home-blog-action-button">Edit</button>
+                    <button className="Home-blog-action-button">Delete</button>
+                  </div>
                 </div>
-                <div className="Home-blog-actions">
-                  <button className="Home-blog-action-button">Edit</button>
-                  <button className="Home-blog-action-button">Delete</button>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-    
+    </div>
   )
 }
 
