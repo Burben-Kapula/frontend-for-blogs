@@ -124,13 +124,13 @@ function BlogForm() {
           </div>
 
           <div className="BlogForm-actions">
-            <button 
-              type="submit" 
-              className="BlogForm-submit-button"
-              disabled={loading}
-            >
-              {loading ? 'Creating...' : 'Create Blog'}
-            </button>
+          <span className="BlogForm-titlebar-text">
+            {isEditing ? 'Edit Blog' : 'Create New Blog'}
+          </span>
+
+          <button className="BlogForm-submit-button" disabled={loading}>
+            {loading ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Blog' : 'Create Blog')}
+          </button>
             
             <Link to="/home" className="BlogForm-cancel-button">
               Cancel
