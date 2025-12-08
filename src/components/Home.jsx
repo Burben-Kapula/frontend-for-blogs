@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import api from "../services/api"
 import './css/Home.css'
+
 function Home() {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
@@ -10,47 +11,44 @@ function Home() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
+  // 1) Чистий чек авторизації
   useEffect(() => {
-    // Перевіряємо авторизацію при завантаженні
-    const checkAuth = () => {
-      const token = localStorage.getItem('token')
-      const userData = localStorage.getItem('user')
+    const token = localStorage.getItem('token')
+    const userData = localStorage.getItem('user')
       
-      if (!token || !userData) {
-        navigate("/")
-        return
-      }
-      
-      try {
-        const parsedUser = JSON.parse(userData)
-        setUser(parsedUser)
-        
-        // Завантаження блогів
-        loadBlogs()
-      } catch (error) {
-        console.error('Error parsing user data:', error)
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-        navigate("/")
-      }
+    if (!token || !userData) {
+      navigate("/")
+      return
     }
+      
+    try {
+      const parsedUser = JSON.parse(userData)
+      setUser(parsedUser)
+    } catch (error) {
+      console.error('Error parsing user data:', error)
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      navigate("/")
+    }
+  }, [navigate])
+
+  // 2) Завантаження блогів, коли user вже є
+  useEffect(() => {
+    if (!user) return
 
     const loadBlogs = async () => {
       try {
         setLoading(true)
         setError('')
         
-        // Завантажуємо всі блоги
         const allRes = await api.get('/blogs')
         const shuffled = [...allRes.data].sort(() => Math.random() - 0.5)
         setAllBlogs(shuffled)
         
-        // Фільтруємо блоги поточного користувача
         const myBlogsFiltered = shuffled.filter(blog => 
           (blog.author && blog.author._id === user.id) || blog.author === user.id
         )
         setMyBlogs(myBlogsFiltered)
-        
       } catch (err) {
         console.error('Failed to load blogs:', err)
         setError('Failed to load blogs')
@@ -58,9 +56,9 @@ function Home() {
         setLoading(false)
       }
     }
-    
-    checkAuth()
-  }, [navigate])
+
+    loadBlogs()
+  }, [user])
 
   const handleLogout = () => {
     localStorage.removeItem('token')
