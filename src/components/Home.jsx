@@ -40,14 +40,26 @@ function Home() {
       try {
         setLoading(true)
         setError('')
-        
+
         const allRes = await api.get('/blogs')
         const shuffled = [...allRes.data].sort(() => Math.random() - 0.5)
         setAllBlogs(shuffled)
-        
-        const myBlogsFiltered = shuffled.filter(blog => 
-          (blog.author && blog.author._id === user.id) || blog.author === user.id
-        )
+
+        const currentUserId = user.id || user._id
+
+        const myBlogsFiltered = shuffled.filter(blog => {
+          const author = blog.author
+          if (!author) return false
+
+          // варіанти: author = ObjectId, або об'єкт з _id / id
+          const authorId =
+            typeof author === 'string'
+              ? author
+              : author.id || author._id
+
+          return authorId === currentUserId
+        })
+
         setMyBlogs(myBlogsFiltered)
       } catch (err) {
         console.error('Failed to load blogs:', err)
@@ -67,21 +79,31 @@ function Home() {
   }
 
   const handleRefreshBlogs = async () => {
+    if (!user) return
+
     try {
       setLoading(true)
       setError('')
-      
-      // Перемішуємо всі блоги для рандомізації
+
       const allRes = await api.get('/blogs')
       const shuffled = [...allRes.data].sort(() => Math.random() - 0.5)
       setAllBlogs(shuffled)
-      
-      // Фільтруємо блоги поточного користувача
-      const myBlogsFiltered = shuffled.filter(blog => 
-        blog.author?._id === user.id || blog.author === user.id
-      )
+
+      const currentUserId = user.id || user._id
+
+      const myBlogsFiltered = shuffled.filter(blog => {
+        const author = blog.author
+        if (!author) return false
+
+        const authorId =
+          typeof author === 'string'
+            ? author
+            : author.id || author._id
+
+        return authorId === currentUserId
+      })
+
       setMyBlogs(myBlogsFiltered)
-      
     } catch (err) {
       console.error('Failed to refresh blogs:', err)
       setError('Failed to refresh blogs')
