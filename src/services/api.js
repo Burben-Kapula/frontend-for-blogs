@@ -30,5 +30,9 @@ api.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+export const likeBlog = (id) => api.post(`/blogs/${id}/like`)
+
+export const addCommentToBlog = (id, text) =>
+  api.post(`/blogs/${id}/comments`, { text })
 
 export default api
