@@ -139,6 +139,7 @@ function Home() {
         <button onClick={handleLogout} className="Home-logout-button">
           Logout
         </button>
+        <Link to="/allblogs" className="Home-logout-button">all blogs</Link>
       </div>
       
       <div className="Home-content">
