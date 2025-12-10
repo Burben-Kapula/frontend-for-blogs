@@ -11,11 +11,10 @@ function AllBlogs() {
   const [error, setError] = useState('')
 
 
-  //
   useEffect(() => {
       const fetchBlogs = async () => {
         try {
-          const res = await axios.get("https://frontend-for-blogs.onrender.com/allBlogs")
+          const res = await axios.get("https://frontend-for-blogs.onrender.com/AllBlogs")
           setAllBlogs(res.data)
         } catch (e) {
           setError("Failed to load blogs")
