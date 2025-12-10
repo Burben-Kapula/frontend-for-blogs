@@ -9,11 +9,11 @@ import BlogForm from "./components/BlogForm"
 function App() {
   return (
     <Routes>
-      {/* стартова сторінка = логін */}
-      <Route path="/" element={<AllBlogs/>} />
+      {/* стартова сторінка = всі блоги */}
+      <Route path="/" element={<LoginForm/>} />
       <Route path="/signup" element={<SignUpForm />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/login" element={<LoginForm />} />
+      <Route path="/home" element={<Home/>} />
+      <Route path="/allblogs" element={<AllBlogs />} />
       <Route path="/blogform" element={<BlogForm/>}></Route>
       <Route path="/edit-blog/:id" element={<BlogForm/>}></Route>
     </Routes>

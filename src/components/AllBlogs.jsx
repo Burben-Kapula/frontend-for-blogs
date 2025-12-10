@@ -11,22 +11,6 @@ function AllBlogs() {
   const [error, setError] = useState('')
 
 
-  useEffect(() => {
-      const fetchBlogs = async () => {
-        try {
-          const res = await axios.get("https://frontend-for-blogs.onrender.com/AllBlogs")
-          setAllBlogs(res.data)
-        } catch (e) {
-          setError("Failed to load blogs")
-        } finally {
-          setLoading(false)
-        }
-      }
-      fetchBlogs()
-    }, [])
-
-    if (loading) return <div>Loading...</div>
-    if (error) return <div>{error}</div>
 
   // Завантажуємо блоги коли user змінюється
   useEffect(() => {
@@ -142,7 +126,7 @@ function AllBlogs() {
             My Profile
           </Link>
           <button onClick={handleLogout} className="Home-logout-button">
-            Logout test
+            Logout
           </button>
         </div>
       </div>
