@@ -2,13 +2,32 @@ import React, { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import api from "../services/api"
 import './css/Home.css'
-
+import axios from "axios"
 function AllBlogs() {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
   const [allBlogs, setAllBlogs] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+
+
+  //
+  useEffect(() => {
+      const fetchBlogs = async () => {
+        try {
+          const res = await axios.get("https://frontend-for-blogs.onrender.com/allBlogs")
+          setAllBlogs(res.data)
+        } catch (e) {
+          setError("Failed to load blogs")
+        } finally {
+          setLoading(false)
+        }
+      }
+      fetchBlogs()
+    }, [])
+
+    if (loading) return <div>Loading...</div>
+    if (error) return <div>{error}</div>
 
   // Завантажуємо блоги коли user змінюється
   useEffect(() => {
