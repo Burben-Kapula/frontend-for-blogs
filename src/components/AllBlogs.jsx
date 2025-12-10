@@ -142,7 +142,7 @@ function AllBlogs() {
             My Profile
           </Link>
           <button onClick={handleLogout} className="Home-logout-button">
-            Logout
+            Logout test
           </button>
         </div>
       </div>
